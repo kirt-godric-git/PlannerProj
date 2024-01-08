@@ -1,0 +1,122 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <b>TODO List (Weekly tasks)</b>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button fill="solid" color="primary" shape="round" [routerLink]="['/tabs/create-todo']">
+        <ion-icon slot="start" name="add-circle"></ion-icon>
+        New TODO
+      </ion-button>
+    </ion-buttons>
+    <!-- <ion-title>Outline Buttons</ion-title> -->
+  </ion-toolbar>
+<br>
+<ion-grid>
+  <ion-item-divider>
+    <ion-label class="labelDivider"> TODO List Not Done </ion-label>
+  </ion-item-divider>
+  <ion-row *ngFor="let taskItem of notDoneTasks; index as i" class="ion-justify-content-between">
+    <ion-col size="6">
+      <!-- <div style="width: 150px"> -->
+        <ion-checkbox justify="start" labelPlacement="end" (ionChange)="checkboxClick1($event, taskItem, i)" checked="{{ taskItem.status == 'done' ? true:false }}">
+          {{taskItem.name}}
+        </ion-checkbox>  
+      <!-- </div> -->
+    </ion-col>
+    <ion-col size="auto">
+      <ion-button [routerLink]="['/tabs/edit-todo', taskItem.id]" color="secondary"><ion-icon slot="icon-only" name="create-outline"></ion-icon></ion-button>
+      <!-- <ion-button (click)="onDelete(taskItem.id)" color="danger"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button> -->
+      <ion-button (click)="presentDeleteAlert(taskItem.id)" color="danger"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button>
+   </ion-col>
+  </ion-row>
+  <hr class="dashed">
+ </ion-grid>
+<ion-grid>
+  <ion-item-divider>
+    <ion-label class="labelDivider"> TODO List Done </ion-label>
+  </ion-item-divider>
+  <ion-row *ngFor="let taskItem of doneTasks; index as i" class="ion-justify-content-between">
+    <ion-col size="6">
+      <!-- <div style="width: 150px"> -->
+        <ion-checkbox justify="start" labelPlacement="end" (ionChange)="checkboxClick1($event, taskItem, i)" checked="{{ taskItem.status == 'done' ? true:false }}">
+          {{taskItem.name}}
+        </ion-checkbox>  
+      <!-- </div> -->
+    </ion-col>
+    <ion-col size="auto">
+      <ion-button [routerLink]="['/tabs/edit-todo', taskItem.id]" color="secondary"><ion-icon slot="icon-only" name="create-outline"></ion-icon></ion-button>
+      <!-- <ion-button (click)="onDelete(taskItem.id)" color="danger"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button> -->
+      <ion-button (click)="presentDeleteAlert(taskItem.id)" color="danger"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button>
+
+   </ion-col>
+  </ion-row>
+  <hr class="dashed">
+ </ion-grid>
+
+
+
+ <!-- <ion-grid>
+  <ion-item-divider>
+    <ion-label class="labelDivider"> Tasks Not Done</ion-label>
+  </ion-item-divider>
+  <ion-row *ngFor="let taskItem of tasks; index as i" >
+    <ion-grid>
+      <ion-row class="ion-justify-content-between">
+        <ion-col size="6">
+            <ion-checkbox justify="start" labelPlacement="end" (ionChange)="checkboxClick1($event, taskItem, i)" checked="{{ taskItem.status == 'done' ? true:false }}">
+              {{taskItem.name}}
+            </ion-checkbox>  
+        </ion-col>
+        <ion-col size="auto">
+          <ion-button [routerLink]="['/tabs/edit-task', taskItem.id]" color="secondary"><ion-icon slot="icon-only" name="create-outline"></ion-icon></ion-button>
+          <ion-button (click)="onDelete(taskItem.id)" color="danger"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button>
+       </ion-col>  
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <hr class="dashed">
+        </ion-col>
+      </ion-row>      
+    </ion-grid>
+  </ion-row>
+ </ion-grid> -->
+
+
+<!-- <ion-list>
+  <div class="d-flex justify-content-between">
+    <ion-item-divider>
+      <ion-label class="labelDivider"> Tasks Not Done</ion-label>
+    </ion-item-divider>
+    <ion-item *ngFor="let taskItem of notDoneTasks; index as i" class="d-flex justify-content-between">
+      <ion-checkbox justify="start" labelPlacement="end" (ionChange)="checkboxClick1($event, taskItem, i)" checked="{{ taskItem.status == 'done' ? true:false }}">
+      </ion-checkbox>
+      <ion-label style="padding-left: 15px; padding-right: 5px;">{{taskItem.name}}</ion-label>
+      <ion-button [routerLink]="['/tabs/edit-task', taskItem.id]" color="secondary"><ion-icon slot="icon-only" name="create-outline" size="large"></ion-icon></ion-button>
+      <ion-button (click)="onDelete(taskItem.id)" color="danger"><ion-icon slot="icon-only" name="close-circle-outline" size="large"></ion-icon></ion-button>
+    </ion-item>  
+  </div>
+</ion-list> -->
+
+
+  <!-- Not working -->
+  <!-- <ion-checkbox class="item-checkbox-right checkbox-energized item" 
+    style="border:0;" 
+    ng-model="check1"
+    (ionChange)="printCheck1(check1)">
+    Check me out yo!
+  </ion-checkbox> -->
+  <!-- Working -->
+  <!-- <ion-checkbox class="item-checkbox-right checkbox-energized item" 
+    style="border:0;" 
+    ng-model="check2"
+    (click)="printCheck2(check2)">
+    Check me out yo!2
+  </ion-checkbox> -->
+</ion-content>

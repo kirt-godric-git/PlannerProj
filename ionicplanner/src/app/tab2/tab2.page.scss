@@ -1,0 +1,25 @@
+// ion-col {
+//     border: 2px solid #aeb7ca;
+// }
+
+// .bgcolor {
+//     background: #cdcfd6;
+// }
+
+hr.dashed {
+    border-top: 3px dashed #bbb;
+}
+
+ion-item-divider {
+    --background: #19422d;
+    --color: #fff;
+  
+    --padding-top: 1px;
+    --padding-bottom: 1px;
+    --padding-start: 20px;
+    --padding-end: 20px;
+  }
+
+  .labelDivider {
+    font-size: 17px;
+  }

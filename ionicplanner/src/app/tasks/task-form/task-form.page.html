@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+  <!-- <ion-toolbar>
+    <ion-title>Task Form</ion-title>
+  </ion-toolbar> -->
+  <ion-toolbar>
+    <ion-title *ngIf="isEditMode; else createTitle">
+      <b>Edit {{formTitle}}</b>
+    </ion-title>
+    <ng-template #createTitle>
+      <ion-title>
+        <b>Create {{formTitle}}</b>
+      </ion-title>  
+    </ng-template>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="taskForm">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-input label="Name:" label-placement="floating" [clearInput]="true" maxlength="50" required
+          formControlName="name" placeholder="Enter title for task"></ion-input>
+        <span *ngIf="nameFormControl.touched && nameFormControl.errors?.['required']"> 
+          The name field is required.
+        </span>
+      </ion-item>
+      <ion-item>
+        <ion-textarea label="Description: " labelPlacement="floating" [counter]="true" maxlength="150"
+          formControlName="description" placeholder="Type description of your task..."></ion-textarea>
+      </ion-item>  
+      <ion-item>
+          <ion-input label="Date of Start:" label-placement="floating" [clearInput]="true" 
+          formControlName="date_of_start" type="date"></ion-input>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="datetime1"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+          <span *ngIf="dateOfStartFormControl.touched && dateOfStartFormControl.errors?.['dateRangeValidity']"> 
+            Date of Start is not within the weekly date range validity!
+          </span>      
+          <span *ngIf="dateOfStartFormControl.touched && taskForm.errors?.['todatelessthanfrom']"> 
+            Date of Start is greater than Date of End!
+          </span>      
+      </ion-item>
+      <ion-item>
+        <ion-input label="Date of End: " label-placement="floating" [clearInput]="true" 
+          formControlName="date_of_end" type="date"></ion-input>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="datetime2"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+          <span *ngIf="dateOfEndFormControl.touched && dateOfEndFormControl.errors?.['dateRangeValidity']"> 
+            Date of End is not within the weekly date range validity!
+          </span>      
+          <span *ngIf="dateOfEndFormControl.touched && taskForm.errors?.['todatelessthanfrom']"> 
+            Date of End is less than Date of Start!
+          </span>            
+        </ion-item>
+      <ion-item>
+        <ion-select label="Status: " formControlName="status" placeholder="Select a status">
+          <ion-select-option *ngFor="let statusVal of statusList" [value]=statusVal.id>{{statusVal.value}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-button [routerLink]="['/tabs/tab2']">Cancel</ion-button>
+        <ion-button type="button" (click)="onSubmit()" [disabled]="taskForm.invalid">Submit</ion-button>
+        <!-- <ion-button type="button" (click)="onSubmit()" >Submit</ion-button> -->
+      </ion-item>
+    </ion-list>
+  </form>
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">task-form</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+</ion-content>

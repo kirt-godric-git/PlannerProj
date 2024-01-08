@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <b>Goal List (Monthly tasks)</b>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-content [fullscreen]="true">
+    <ion-toolbar>
+      <ion-buttons slot="secondary">
+        <ion-button fill="solid" color="success" shape="round" [routerLink]="['/tabs/create-goal']">
+          <ion-icon slot="start" name="add-circle"></ion-icon>
+          New Goal
+        </ion-button>
+      </ion-buttons>
+      <!-- <ion-title>Outline Buttons</ion-title> -->
+    </ion-toolbar>
+  <br>
+  <ion-grid>
+    <ion-item-divider>
+      <ion-label class="labelDivider"> TODO List Not Done </ion-label>
+    </ion-item-divider>
+    <ion-row *ngFor="let taskItem of notDoneTasks; index as i" class="ion-justify-content-between">
+      <ion-col size="6">
+        <!-- <div style="width: 150px"> -->
+          <ion-checkbox justify="start" labelPlacement="end" (ionChange)="checkboxClick1($event, taskItem, i)" checked="{{ taskItem.status == 'done' ? true:false }}">
+            {{taskItem.name}}
+          </ion-checkbox>  
+        <!-- </div> -->
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button [routerLink]="['/tabs/edit-goal', taskItem.id]" color="tertiary"><ion-icon slot="icon-only" name="create-outline"></ion-icon></ion-button>
+        <!-- <ion-button (click)="onDelete(taskItem.id)" color="warning"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button> -->
+        <ion-button (click)="presentDeleteAlert(taskItem.id)" color="warning"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button>
+     </ion-col>
+    </ion-row>
+    <hr class="dashed">
+   </ion-grid>
+  <ion-grid>
+    <ion-item-divider>
+      <ion-label class="labelDivider"> TODO List Done </ion-label>
+    </ion-item-divider>
+    <ion-row *ngFor="let taskItem of doneTasks; index as i" class="ion-justify-content-between">
+      <ion-col size="6">
+        <!-- <div style="width: 150px"> -->
+          <ion-checkbox justify="start" labelPlacement="end" (ionChange)="checkboxClick1($event, taskItem, i)" checked="{{ taskItem.status == 'done' ? true:false }}">
+            {{taskItem.name}}
+          </ion-checkbox>  
+        <!-- </div> -->
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button [routerLink]="['/tabs/edit-goal', taskItem.id]" color="tertiary"><ion-icon slot="icon-only" name="create-outline"></ion-icon></ion-button>
+        <!-- <ion-button (click)="onDelete(taskItem.id)" color="warning"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button> -->
+        <ion-button (click)="presentDeleteAlert(taskItem.id)" color="warning"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button>
+     </ion-col>
+    </ion-row>
+    <hr class="dashed">
+   </ion-grid>
+
+</ion-content>
