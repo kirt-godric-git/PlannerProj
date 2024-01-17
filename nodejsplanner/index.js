@@ -57,9 +57,12 @@ config.authenticate()   // promise
 // *******************************************************************
 app.get('/tasks', function(req, res) {
     console.log("Get All tasks");
+    let data = {
+        include: Note
+    }
 
-    Task.findAll()   // SELECT * from tablename implemenation; ORIG
-    //Task.findAll(data)   // SELECT * from tablename implemenation;
+    //Task.findAll()   // SELECT * from tablename implemenation; ORIG
+    Task.findAll(data)   // SELECT * from tablename implemenation;
     .then(function(results) {
         res.status(200).send(results);
     })
@@ -106,11 +109,13 @@ app.get('/weeklytasks', function(req, res) {
                     [Op.gte]: firstday, 
                     [Op.lte]: lastday, 
                 },
-                //status: {
-                //    [Op.eq]: 'not_done'     // OK
-                //},
+                status: {
+                   [Op.eq]: 'not_done'     // OK
+                },
             },
         },
+        // using 'include' option in finder methods is also known as Eager Loading in Sequelize
+        include: Note
     }
 
     Task.findAll(searchObject)   // SELECT * from tablename implemenation;
@@ -163,6 +168,32 @@ app.get('/monthlytasks', function(req, res) {
                 status: 'not_done',     // OK
             },
         },
+        // using 'include' option in finder methods is also known as Eager Loading in Sequelize
+        include: Note
+    }
+
+    Task.findAll(searchObject)   // SELECT * from tablename implemenation;
+    .then(function(results) {
+        res.status(200).send(results);
+    })
+    .catch(function(error) {
+        res.status(500).send(error);
+    })
+})
+
+
+// *******************************************************************
+// ***** Retrieve all monthly tasks  GET http://localhost:3000/achievedtasks/ ******
+// *******************************************************************
+app.get('/achievedtasks', function(req, res) {
+    console.log("Get Achievement tasks");
+
+    let searchObject = {
+        where: {
+            status: 'done',     // OK
+        },
+        // using 'include' option in finder methods is also known as Eager Loading in Sequelize
+        include: Note
     }
 
     Task.findAll(searchObject)   // SELECT * from tablename implemenation;
@@ -422,12 +453,12 @@ app.get('/notes', function(req, res) {
     console.log("Get all notes");
 
     // data here is to set to include Note with Task object(s)
-    let data = {
-        include: Task
-    }
+    // let data = {
+    //     include: Task
+    // }
 
-    //Note.findAll()   // SELECT * from tablename implemenation;  without Task
-    Note.findAll(data)   // SELECT * from tablename implemenation; with Task
+    Note.findAll()   // SELECT * from tablename implemenation;  without Task
+    // Note.findAll(data)   // SELECT * from tablename implemenation; with Task
     .then(function(results) {
         res.status(200).send(results);
     })

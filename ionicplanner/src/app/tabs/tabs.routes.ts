@@ -41,6 +41,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../tasks/task-form/task-form.page').then((m) => m.TaskFormPage),
       },
+      {
+        path: 'tab4',
+        loadComponent: () =>
+          import('../tab4/tab4.page').then((m) => m.Tab4Page),
+      },
+      {
+        path: 'create-note/:task_id',
+        loadComponent: () =>
+          import('../notes/note-form/note-form.page').then((m) => m.NoteFormPage),
+      },
 
       {
         path: '',

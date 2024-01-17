@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title><b>Create Note</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="noteForm">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-input label="Name:" label-placement="floating" [clearInput]="true" maxlength="50" required
+          formControlName="name" placeholder="Enter title for task"></ion-input>
+        <span *ngIf="nameFormControl.touched && nameFormControl.errors?.['required']"> 
+          The name field is required.
+        </span>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Header:" label-placement="floating" [clearInput]="true" maxlength="50" required
+          formControlName="header" placeholder="Enter title for note"></ion-input>
+      </ion-item>  
+      <ion-item>
+        <ion-textarea label="Details: " labelPlacement="floating" [counter]="true" maxlength="150"
+          formControlName="details" placeholder="Type details of your note..."></ion-textarea>
+      </ion-item>  
+      <ion-item>
+        <ion-checkbox justify="start" labelPlacement="end" (ionChange)="checkboxClick($event)" formControlName="importance" checked="{{ importanceFormControl.value == 'done' ? true:false }}">
+        Is this Important?
+        </ion-checkbox>  
+      </ion-item>
+      <ion-item>
+        <ion-button [routerLink]="['/tabs/tab4']">Cancel</ion-button>
+        <ion-button type="button" (click)="onSubmit()" [disabled]="noteForm.invalid">Submit</ion-button>
+        <!-- <ion-button type="button" (click)="onSubmit()" >Submit</ion-button> -->
+      </ion-item>
+
+    </ion-list>
+  </form>
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">note-form</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+</ion-content>

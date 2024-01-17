@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Itask } from '../interfaces/itask';
+import { Inote } from '../interfaces/inote';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class TaskService {
 
   getMonthlyTasks() {
     return this.http.get<Itask[]>('http://localhost:3000/monthlytasks');
+  }
+
+  getAchievedTasks() {
+    return this.http.get<Itask[]>('http://localhost:3000/achievedtasks');
   }
 
   createTask(formData: any) {
@@ -44,6 +49,10 @@ export class TaskService {
 
   deleteTask(taskId: number) {
     return this.http.delete<Itask>(`http://localhost:3000/tasks/${taskId}`);
+  }
+
+  createNote(formData: any) {
+    return this.http.post<Inote>('http://localhost:3000/notes', formData);
   }
 
 }

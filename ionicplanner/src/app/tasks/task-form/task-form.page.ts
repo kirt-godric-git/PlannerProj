@@ -31,22 +31,34 @@ export class TaskFormPage implements OnInit {
     console.log("this.router.url = "+ this.router.url);   // e.g. /tabs/create-todo or /tabs/create-goal
     if (this.router.url.includes("todo")) {
       this.formTitle = "TODO Action"
+      this.taskForm = formBuilder.group({
+        name: ['', [Validators.required]],
+        description: ['', []],
+        date_of_start: ['', [Validators.required, isDateRangeValid]],
+        date_of_end: ['', [Validators.required, isDateRangeValid]],
+        status: ['', [Validators.required]],
+        task_type: ['', []],
+        },
+        { 
+          validator: dateLessThan('date_of_start', 'date_of_end')
+        }
+      );  
     } else {
       this.formTitle = "Goal Action"
+      this.taskForm = formBuilder.group({
+        name: ['', [Validators.required]],
+        description: ['', []],
+        date_of_start: ['', [Validators.required]],
+        date_of_end: ['', [Validators.required]],
+        status: ['', [Validators.required]],
+        task_type: ['', []],
+        },
+        { 
+          validator: dateLessThan('date_of_start', 'date_of_end')
+        }
+      );  
     }
 
-    this.taskForm = formBuilder.group({
-      name: ['', [Validators.required]],
-      description: ['', []],
-      date_of_start: ['', [Validators.required, isDateRangeValid]],
-      date_of_end: ['', [Validators.required, isDateRangeValid]],
-      status: ['', [Validators.required]],
-      task_type: ['', []],
-    },
-    { 
-      validator: dateLessThan('date_of_start', 'date_of_end')
-    }
-    );
 
     // When editing mode...
     const taskId = this.route.snapshot.paramMap.get('task_id');
@@ -89,7 +101,9 @@ export class TaskFormPage implements OnInit {
           this.taskForm.get('date_of_end')?.setValue(null);
         }
       });
-    } 
+    } else {
+      this.taskForm.get('status')?.setValue('not_done');
+    }
   }
 
   ngOnInit() {

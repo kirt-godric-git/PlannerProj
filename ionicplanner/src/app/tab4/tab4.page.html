@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title><b>Achievements (All Done)</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngFor="let task of tasks; index as indexNum">
+    <ion-card style="padding-top: 5px; padding-bottom: 5px;" color="{{ indexNum % 2 == 0 ? 'primary' : 'success'}}">
+      <ion-card-header>
+        <div class="d-flex justify-content-between">
+          <ion-card-title>#{{indexNum +1}} - {{ task.name }}</ion-card-title>
+          <div class="d-flex justify-content-between">
+            <!-- <ion-button color="warning"><ion-icon slot="icon-only" name="create-outline"></ion-icon>Add Note</ion-button> -->
+            <ion-button [routerLink]="['/tabs/create-note', task.id]" color="warning"><ion-icon slot="icon-only" name="create-outline"></ion-icon>Add Note</ion-button>
+            <!-- <ion-button (click)="onDelete()" color="danger"><ion-icon slot="icon-only" name="close-circle-outline"></ion-icon></ion-button> -->
+          </div>          
+        </div>
+        <ion-card-subtitle><ion-label class="textLabel1">Description: </ion-label><ion-label class="textDesc">{{ task.description }}</ion-label></ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <div><ion-label class="textLabel1">Date of Start: </ion-label><ion-label class="textLabel2">{{ task.date_of_start | date }}</ion-label></div>
+        <div><ion-label class="textLabel1">Date of End: </ion-label><ion-label class="textLabel2">{{ task.date_of_end | date }}</ion-label></div>
+        <div><ion-label class="textLabel1">Status: </ion-label><ion-label class="textLabel2">{{ task.status.charAt(0).toUpperCase() + task.status.substring(1) }}</ion-label></div>
+      </ion-card-content>
+      <ion-card-content>
+        <h2>Notes:</h2>
+        <!-- <div *ngFor="let note of notes; index as indexNum2">
+          <ion-label class="textLabel2">{{ note }}</ion-label>
+        </div> -->
+        <!-- <ion-label class="textLabel2">List of notes:  {{ task.Notes }}</ion-label> -->
+        <div *ngFor="let note of task.Notes; index as indexNum2">
+          <ion-label class="textLabel2">{{ note.name }}</ion-label>
+        </div>
+        <div *ngIf="task.Notes.length == 0">
+          <ion-label class="textLabel2">No notes available...</ion-label>
+        </div>
+      </ion-card-content>
+      <!-- <ion-card-content>
+        <h2>Notes 2:</h2>
+        <div *ngFor="let note of notes2; index as indexNum2">
+          <ion-label class="textLabel2">{{ note.name }}</ion-label>
+        </div>
+      </ion-card-content> -->
+    </ion-card>
+  </div>
+
+</ion-content>

@@ -26,7 +26,7 @@
     <ion-col size="6">
       <!-- <div style="width: 150px"> -->
         <ion-checkbox justify="start" labelPlacement="end" (ionChange)="checkboxClick1($event, taskItem, i)" checked="{{ taskItem.status == 'done' ? true:false }}">
-          {{taskItem.name}}
+          {{taskItem.name}} : ({{taskItem.date_of_start}} to {{taskItem.date_of_end}})
         </ion-checkbox>  
       <!-- </div> -->
     </ion-col>
@@ -46,7 +46,7 @@
     <ion-col size="6">
       <!-- <div style="width: 150px"> -->
         <ion-checkbox justify="start" labelPlacement="end" (ionChange)="checkboxClick1($event, taskItem, i)" checked="{{ taskItem.status == 'done' ? true:false }}">
-          {{taskItem.name}}
+          {{taskItem.name}} : ({{taskItem.date_of_start}} to {{taskItem.date_of_end}})
         </ion-checkbox>  
       <!-- </div> -->
     </ion-col>
